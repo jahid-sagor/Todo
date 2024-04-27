@@ -6,11 +6,10 @@ const App = () => {
   const [task, setTask] = useState('');
   const [alltask, setAllTask] = useState([]);
 
-
-
   const handleInput = (e) => {
     setTask(e.target.value);
   }
+
 
   const handleSubmit = () => {
     if (task != 0) {
@@ -21,22 +20,22 @@ const App = () => {
     }
   }
 
+
   useEffect(() => {
     const todoRef = ref(db, 'todo/');
     onValue(todoRef, (snapshot) => {
       let array = []
       snapshot.forEach((item) => {
-        array.push({ ...item.val(), key: item.key })
+        array.push({ ...item.val(),  })
       })
       setAllTask(array);
     });
   }, [])
 
-
   let handleDelete = (key) => {
-
     remove(ref(db, 'todo/' + key))
   }
+  
   return (
     <section className="bg-gray-50 dark:bg-gray-900">
       <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto mt-10  lg:py-0">
@@ -85,30 +84,22 @@ const App = () => {
         </div>
       </div>
       <ul className='my-20'>
-
         <li className=''>
-
           <div className="relative overflow-x-auto">
             <table className="w-[500px] mx-auto text-[16px] text-left text-gray-500">
               <thead className="text-md text-gray-700 uppercase bg-gray-50 ">
                 {alltask.map((value, i) => (
-
                   <tr key={i}>
                     <th className='py-2'>
                       {value.task}
-
                     </th>
                     <button onClick={() => handleDelete(value.key)} className='py-1 px-4 bg-red-500 text-white rounded-md'>Delete</button>
                   </tr>
                 ))}
-
-
               </thead>
             </table>
           </div>
-
         </li>
-
       </ul>
     </section>
   )
