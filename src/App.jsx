@@ -26,7 +26,7 @@ const App = () => {
     onValue(todoRef, (snapshot) => {
       let array = []
       snapshot.forEach((item) => {
-        array.push({ ...item.val(),  })
+        array.push({ ...item.val(), key: value.key })
       })
       setAllTask(array);
     });
